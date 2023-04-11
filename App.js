@@ -10,7 +10,19 @@ import {
 	View,
 } from "react-native";
 
+import { ThemeProvider, createTheme } from "@rneui/themed";
+
 import { Colors } from "react-native/Libraries/NewAppScreen";
+
+const theme = createTheme({
+	lightColors: {
+		primary: "#e7e7e8",
+	},
+	darkColors: {
+		primary: "#000",
+	},
+	mode: "light",
+});
 
 const App = () => {
 	const [message, setMessage] = React.useState();
