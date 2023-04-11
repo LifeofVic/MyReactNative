@@ -43,6 +43,13 @@ const App = () => {
 				}}
 			/>
 
+			<Button
+				title='Personal Record'
+				onPress={() => {
+					setMessage("Clicked on Message");
+				}}
+			/>
+
 			{message && (
 				<Text style={styles.messageText} testID='printed-message'>
 					{message}
