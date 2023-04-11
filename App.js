@@ -1,37 +1,65 @@
-import { StyleSheet, Text, View } from "react-native";
-import { Router, Route, Link } from "./react-router";
+import React from "react";
+import {
+	SafeAreaView,
+	StatusBar,
+	StyleSheet,
+	Text,
+	useColorScheme,
+	Button,
+	TextInput,
+	View,
+} from "react-native";
 
-const Home = () => <Text>Home</Text>;
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
-const About = () => <Text>About</Text>;
+const App = () => {
+	const [message, setMessage] = React.useState();
 
-const App = () => (
-  <Router>
-    <View style={styles.container}>
-      <View style={styles.nav}>
-        <Link to="/">
-          <Text>Home</Text>
-        </Link>
-        <Link to="/about">
-          <Text>About</Text>
-        </Link>
-      </View>
+	const isDarkMode = useColorScheme() === "dark";
+	const backgroundStyle = {
+		backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+	};
 
-      <Route exact path="/" component={Home} />
-      <Route path="/about" component={About} />
-    </View>
-  </Router>
-);
+	return (
+		<SafeAreaView style={backgroundStyle}>
+			<StatusBar
+				barStyle={isDarkMode ? "light-content" : "dark-content"}
+				backgroundColor={backgroundStyle.backgroundColor}
+			/>
+
+			<Button
+				title='Say Hello'
+				onPress={() => {
+					setTimeout(() => {
+						setMessage("Hello Tester");
+					}, Math.floor(Math.random() * 200));
+				}}
+			/>
+
+			<Button
+				title='Another One'
+				onPress={() => {
+					setMessage("New New");
+				}}
+			/>
+
+			{message && (
+				<Text style={styles.messageText} testID='printed-message'>
+					{message}
+				</Text>
+			)}
+		</SafeAreaView>
+	);
+};
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 25,
-    padding: 10,
-  },
-  nav: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-  },
+	messageText: {
+		fontFamily: "Arial",
+		fontSize: 48,
+		textAlign: "center",
+		marginTop: 25,
+		color: "#bdbdbd",
+	},
 });
 
 export default App;
